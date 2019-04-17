@@ -8,6 +8,7 @@ import fr.pboudeaud.obiwanapi.service.UtilisateurService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -55,12 +56,13 @@ public class QuizzController {
     }
 
     @PostMapping(path = "/createedit")
-    public String quizzCreateEdit(@ModelAttribute Quizz quizz, Model model) {
+    public RedirectView quizzCreateEdit(@ModelAttribute Quizz quizz) {
         if (quizz.getId() > 0) {
             this.quizzService.edit(quizz);
         } else {
             this.quizzService.create(quizz);
         }
-        return this.getAll(model);
+        return new RedirectView("/quizz/show" + quizz.getId());
+    }
     }
 }
