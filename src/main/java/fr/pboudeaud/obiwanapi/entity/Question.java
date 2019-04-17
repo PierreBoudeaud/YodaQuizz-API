@@ -35,6 +35,7 @@ public class Question implements Serializable {
     private Quizz quizz;
 
     public Question() {
+        this.temps = 10;
         this.dateCrea = new Date();
         this.dateModif = new Date();
         this.reponses = new ArrayList<>();
