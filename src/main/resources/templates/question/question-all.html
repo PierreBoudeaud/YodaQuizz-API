@@ -19,7 +19,7 @@
             <th></th>
         </tr>
         <tr th:if="${quizz.questions.size() == 0}">
-            <td colspan="6">Aucune intitule dans ce quizz</td>
+            <td colspan="6">Aucune question dans ce quizz</td>
         </tr>
         <tr th:each="question: ${quizz.questions}">
             <td th:text="${question.id}"></td>
