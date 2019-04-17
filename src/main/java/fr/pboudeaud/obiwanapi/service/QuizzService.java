@@ -37,4 +37,8 @@ public class QuizzService {
             this.quizzRepository.flush();
         }
     }
+
+    public void delete(int id) {
+        this.quizzRepository.deleteById(id);
+    }
 }
