@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Quizz</title>
+</head>
+<body>
+    <h1 th:text="${quizz.nom}" />
+    <p th:text="${quizz.type.nom}" />
+    <p><span th:each="theme: ${quizz.themes}" class="badge badge-info" th:text="${theme.nom}" /></p>
+    <p th:text="'Crée par ' + ${quizz.createur.nom}" />
+    <p th:text="'Nombre de questions: ' + ${quizz.questions.size()}" />
+    <table>
+        <tr>
+            <td th:each="image: ${quizz.getSomeImagesOfQuestions()}"><p th:if="${image == null || image == ''}">Aucune image enregistrée pour le moment</p><img th:if="${image != null && image != ''}" th:src="'/api/showFile/' + ${image}" th:alt="'image intitule de la question'"></td>
+        </tr>
+    </table>
+    <p><form action="#" method="post"><button type="submit" class="btn btn-danger">Supprimer définitivement</button></form><a class="btn btn-secondary" th:href="@{'/quizz'}">Annuler</a></p>
+</body>
+</html>
