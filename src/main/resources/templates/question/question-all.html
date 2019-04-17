@@ -25,8 +25,7 @@
             <td th:text="${question.id}"></td>
             <td><a th:href="@{'/quizz/' + ${quizz.id} + '/questions/' + ${question.id}}" th:text="${question.intitule}"></a></td>
             <td><button class="btn round" disabled th:classappend="${question.image != null && question.image != ''} ? 'btn-success' : 'btn-danger'" /></td>
-            <td><button class="btn round" disabled th:classappend="${question.hasMultipleResponses()} ? 'btn-danger' : 'btn-success'" /></td>
-            <td><a class="btn btn-warning" th:href="@{'/quizz/' + ${quizz.id} + '/questions/createedit/' + ${question.id}}">Edit</a></td>
+            <td><a class="btn btn-warning" th:href="@{'/quizz/' + ${quizz.id} + '/questions/createedit/' + ${question.id}}">Edit</a><a class="btn btn-danger" th:href="@{'/quizz/' + ${quizz.id} + '/questions/' + ${question.id} + '/delete'}">Supprimer</a></td>
         </tr>
     </table>
     <style>
