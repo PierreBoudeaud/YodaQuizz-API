@@ -9,7 +9,7 @@
     <div th:replace="fragments/header :: header">...</div>
     <h1>Quizz</h1>
     <a th:href="@{'/quizz/' + ${quizz.id} + '/questions/createedit/0'}" class="btn btn-success rounded">+</a>
-    <a th:href="@{'/quizz/show/' + ${quizz.id}}" class="btn btn-primary">Retour</a>
+    <a th:href="@{'/quizz/' + ${quizz.id}}" class="btn btn-primary">Retour</a>
     <table class="table">
         <tr>
             <th>Id</th>

@@ -36,7 +36,7 @@ public class QuizzController {
         return "quizz/quizz-all";
     }
 
-    @GetMapping(path = "/show/{id}")
+    @GetMapping(path = "/{id}")
     public String show(@PathVariable("id") Quizz quizz, Model model) {
         model.addAttribute("quizz", quizz);
         return "quizz/quizz-show";
@@ -62,6 +62,8 @@ public class QuizzController {
         } else {
             this.quizzService.create(quizz);
         }
+        return new RedirectView("/quizz/" + quizz.getId());
+    }
 
     @GetMapping(path = "/{id}/delete")
     public String deleteForm(@PathVariable("id") Quizz quizz, Model model) {

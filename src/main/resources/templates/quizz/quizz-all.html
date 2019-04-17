@@ -22,7 +22,7 @@
             <td colspan="6">Aucun quizz trouvé</td>
         </tr>
         <tr th:each="quizz: ${allQuizz}">
-            <td><a th:href="@{'/quizz/show/' + ${quizz.id}}" th:text="${quizz.nom}"></a></td>
+            <td><a th:href="@{'/quizz/' + ${quizz.id}}" th:text="${quizz.nom}"></a></td>
             <td th:text="${quizz.description}" />
             <td th:text="${quizz.type.nom}" />
             <td><span th:each="theme: ${quizz.themes}" class="badge badge-info" th:text="${theme.nom}" /></td>
