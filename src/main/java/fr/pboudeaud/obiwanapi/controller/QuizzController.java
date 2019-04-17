@@ -62,7 +62,16 @@ public class QuizzController {
         } else {
             this.quizzService.create(quizz);
         }
-        return new RedirectView("/quizz/show" + quizz.getId());
+
+    @GetMapping(path = "/{id}/delete")
+    public String deleteForm(@PathVariable("id") Quizz quizz, Model model) {
+        model.addAttribute("quizz", quizz);
+        return "quizz/quizz-delete";
     }
+
+    @PostMapping(path = "/{id}/delete")
+    public RedirectView delete(@PathVariable("id") Quizz quizz) {
+        this.quizzService.delete(quizz.getId());
+        return new RedirectView("/quizz");
     }
 }
