@@ -27,7 +27,7 @@
             <td th:text="${quizz.type.nom}" />
             <td><span th:each="theme: ${quizz.themes}" class="badge badge-info" th:text="${theme.nom}" /></td>
             <td th:text="${quizz.createur.nom}" />
-            <td><a class="btn btn-warning" th:href="@{'/quizz/createedit/' + ${quizz.id}}">Edit</a></td>
+            <td><a class="btn btn-warning" th:href="@{'/quizz/createedit/' + ${quizz.id}}">Edit</a><a class="btn btn-danger" th:href="@{'/quizz/' + ${quizz.id} + '/delete'}">Supprimer</a></td>
         </tr>
     </table>
 </body>
