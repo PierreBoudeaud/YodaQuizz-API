@@ -5,6 +5,7 @@ import fr.pboudeaud.obiwanapi.service.ThemeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -32,12 +33,12 @@ public class ThemeController {
     }
 
     @PostMapping(path = "/createedit")
-    public String themeCreateEdit(@ModelAttribute Theme theme, Model model) {
+    public RedirectView themeCreateEdit(@ModelAttribute Theme theme) {
         if (theme.getId() > 0) {
             this.themeService.edit(theme);
         } else {
             this.themeService.create(theme);
         }
-        return this.getAll(model);
+        return new RedirectView("/themes");
     }
 }
