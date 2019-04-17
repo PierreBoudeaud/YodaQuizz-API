@@ -15,7 +15,7 @@
             <th>Id</th>
             <th>Nom</th>
             <th>Image</th>
-            <th>Simple(V)/Multiple(R)</th>
+            <th>Simple(B)/Multiple(G)</th>
             <th></th>
         </tr>
         <tr th:if="${quizz.questions.size() == 0}">
@@ -25,6 +25,7 @@
             <td th:text="${question.id}"></td>
             <td><a th:href="@{'/quizz/' + ${quizz.id} + '/questions/' + ${question.id}}" th:text="${question.intitule}"></a></td>
             <td><button class="btn round" disabled th:classappend="${question.image != null && question.image != ''} ? 'btn-success' : 'btn-danger'" /></td>
+            <td><button class="btn round" disabled th:classappend="${question.hasMultipleResponses()} ? 'btn-secondary' : 'btn-info'" /></td>
             <td><a class="btn btn-warning" th:href="@{'/quizz/' + ${quizz.id} + '/questions/createedit/' + ${question.id}}">Edit</a><a class="btn btn-danger" th:href="@{'/quizz/' + ${quizz.id} + '/questions/' + ${question.id} + '/delete'}">Supprimer</a></td>
         </tr>
     </table>
