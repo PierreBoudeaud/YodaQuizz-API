@@ -8,6 +8,7 @@ import fr.pboudeaud.obiwanapi.service.UtilisateurService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -35,7 +36,7 @@ public class QuizzController {
         return "quizz/quizz-all";
     }
 
-    @GetMapping(path = "/show/{id}")
+    @GetMapping(path = "/{id}")
     public String show(@PathVariable("id") Quizz quizz, Model model) {
         model.addAttribute("quizz", quizz);
         return "quizz/quizz-show";
@@ -55,12 +56,24 @@ public class QuizzController {
     }
 
     @PostMapping(path = "/createedit")
-    public String quizzCreateEdit(@ModelAttribute Quizz quizz, Model model) {
+    public RedirectView quizzCreateEdit(@ModelAttribute Quizz quizz) {
         if (quizz.getId() > 0) {
             this.quizzService.edit(quizz);
         } else {
             this.quizzService.create(quizz);
         }
-        return this.getAll(model);
+        return new RedirectView("/quizz/" + quizz.getId());
+    }
+
+    @GetMapping(path = "/{id}/delete")
+    public String deleteForm(@PathVariable("id") Quizz quizz, Model model) {
+        model.addAttribute("quizz", quizz);
+        return "quizz/quizz-delete";
+    }
+
+    @PostMapping(path = "/{id}/delete")
+    public RedirectView delete(@PathVariable("id") Quizz quizz) {
+        this.quizzService.delete(quizz.getId());
+        return new RedirectView("/quizz");
     }
 }

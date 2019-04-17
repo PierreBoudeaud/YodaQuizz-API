@@ -62,4 +62,8 @@ public class QuestionService {
             this.questionRepository.flush();
         }
     }
+
+    public void delete(int id) {
+        this.questionRepository.deleteById(id);
+    }
 }

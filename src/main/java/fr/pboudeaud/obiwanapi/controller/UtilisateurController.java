@@ -5,6 +5,7 @@ import fr.pboudeaud.obiwanapi.service.UtilisateurService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -32,12 +33,12 @@ public class UtilisateurController {
     }
 
     @PostMapping(path = "/createedit")
-    public String utilisateurCreateEdit(@ModelAttribute Utilisateur utilisateur, Model model) {
+    public RedirectView utilisateurCreateEdit(@ModelAttribute Utilisateur utilisateur) {
         if (utilisateur.getId() > 0) {
             this.utilisateurService.edit(utilisateur);
         } else {
             this.utilisateurService.create(utilisateur);
         }
-        return this.getAll(model);
+        return new RedirectView("/utilisateurs");
     }
 }

@@ -5,6 +5,7 @@ import fr.pboudeaud.obiwanapi.service.TypeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -32,12 +33,12 @@ public class TypeController {
     }
 
     @PostMapping(path = "/createedit")
-    public String typeCreateEdit(@ModelAttribute Type type, Model model) {
+    public RedirectView typeCreateEdit(@ModelAttribute Type type) {
         if (type.getId() > 0) {
             this.typeService.edit(type);
         } else {
             this.typeService.create(type);
         }
-        return this.getAll(model);
+        return new RedirectView("/types");
     }
 }

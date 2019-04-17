@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Quizz</title>
+</head>
+<body>
+    <h1 th:text="${question.intitule}"></h1>
+    <p th:if="${question.image == null || question.image == ''}">Aucune image enregistrée pour le moment</p><img style="width: 15%" th:if="${question.image != null && question.image != ''}" th:src="'/api/showFile/' + ${question.image}" th:alt="'image intitule de la intitule ' + ${question.id}">
+    <form th:action="@{'/quizz/' + ${question.quizz.id} + '/questions/' + ${question.id} + '/changeimage'}" method="post" enctype="multipart/form-data">
+        <input type="file" name="image">
+        <button type="submit">Change Image</button>
+    </form>
+    <p><button class="btn round" disabled th:classappend="${question.hasMultipleResponses()} ? 'btn-danger' : 'btn-success'"></button></p>
+    <p>Réponses</p>
+    <table th:if="${question.reponses.size() == 4}">
+        <tr>
+            <td><button class="btn" th:classappend="${question.reponses[0].isCorrect()} ? 'btn-success' : 'btn-danger'" th:text="${question.reponses[0].nom}"></button></td>
+            <td><button class="btn" th:classappend="${question.reponses[1].isCorrect()} ? 'btn-success' : 'btn-danger'" th:text="${question.reponses[1].nom}"></button></td>
+        </tr>
+        <tr>
+            <td><button class="btn" th:classappend="${question.reponses[2].isCorrect()} ? 'btn-success' : 'btn-danger'" th:text="${question.reponses[2].nom}"></button></td>
+            <td><button class="btn" th:classappend="${question.reponses[3].isCorrect()} ? 'btn-success' : 'btn-danger'" th:text="${question.reponses[3].nom}"></button></td>
+        </tr>
+    </table>
+    <p>
+        <form action="#" method="post"><button type="submit" class="btn btn-danger">Supprimer définitivement</button></form>
+        <a class="btn btn-secondary" th:href="@{'/quizz/' + ${question.quizz.id} + '/questions'}">Retour</a>
+    </p>
+    <style>
+        .round {
+            border-radius: 50%;
+            padding: 12px;
+        }
+    </style>
+</body>
+</html>
