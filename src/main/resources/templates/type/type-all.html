@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Quizz</title>
+</head>
+<body>
+<div th:replace="fragments/header :: header">...</div>
+<h1>Types</h1>
+<a th:href="@{/types/createedit/0}" class="btn btn-success rounded">+</a>
+<table class="table">
+    <tr>
+        <th>Id</th>
+        <th>Nom</th>
+        <th>Description</th>
+        <th>Icon</th>
+        <th></th>
+    </tr>
+    <tr th:each="type: ${allTypes}">
+        <td th:text="${type.id}" />
+        <td th:text="${type.nom}" />
+        <td th:text="${type.description}" />
+        <td th:text="${type.icon}" />
+        <td><a class="btn btn-warning" th:href="@{'/types/createedit/' + ${type.id}}">Edit</a></td>
+    </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create or edit</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+ <h1>Form Theme</h1>
+ <form action="#" th:action="@{/themes/createedit}" th:object="${theme}" method="post">
+     <input type="hidden" th:field="*{id}" />
+     <div class="form-group">
+         <label for="theme_name">Nom: </label>
+         <input type="text" class="form-control" id="theme_name" placeholder="Nom" th:field="*{nom}" />
+     </div>
+     <div class="form-group">
+         <label for="theme_icon">Icône: </label>
+         <input type="text" class="form-control" id="theme_icon" placeholder="Icon" th:field="*{icon}" />
+     </div>
+     <div class="form-group">
+         <label for="theme_description">Description: </label>
+         <textarea type="text" class="form-control" id="theme_description" placeholder="Nom" th:field="*{description}"> </textarea>
+     </div>
+     <p><input class="btn btn-success" type="submit" value="Enregistrer" /> <a class="btn btn-secondary" th:href="@{/themes}">Retour</a></p>
+ </form>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Quizz</title>
+</head>
+<body>
+    <div th:replace="fragments/header :: header">...</div>
+    <h1>Quizz</h1>
+    <a th:href="@{'/quizz/' + ${quizz.id} + '/questions/createedit/0'}" class="btn btn-success rounded">+</a>
+    <a th:href="@{'/quizz/show/' + ${quizz.id}}" class="btn btn-primary">Retour</a>
+    <table class="table">
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>Image</th>
+            <th>Simple(V)/Multiple(R)</th>
+            <th></th>
+        </tr>
+        <tr th:if="${quizz.questions.size() == 0}">
+            <td colspan="6">Aucune intitule dans ce quizz</td>
+        </tr>
+        <tr th:each="question: ${quizz.questions}">
+            <td th:text="${question.id}"></td>
+            <td><a th:href="@{'/quizz/' + ${quizz.id} + '/questions/' + ${question.id}}" th:text="${question.intitule}"></a></td>
+            <td><button class="btn round" disabled th:classappend="${question.image != null && question.image != ''} ? 'btn-success' : 'btn-danger'" /></td>
+            <td><button class="btn round" disabled th:classappend="${question.hasMultipleResponses()} ? 'btn-danger' : 'btn-success'" /></td>
+            <td><a class="btn btn-warning" th:href="@{'/quizz/' + ${quizz.id} + '/questions/createedit/' + ${question.id}}">Edit</a></td>
+        </tr>
+    </table>
+    <style>
+        .round {
+            border-radius: 50%;
+            padding: 12px;
+        }
+    </style>
+</body>
+</html>

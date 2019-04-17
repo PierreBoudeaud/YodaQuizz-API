@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create or edit</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+ <h1>Form Theme</h1>
+ <form action="#" th:action="@{'/quizz/' + ${laQuestion.quizz.id} + '/questions/createedit'}" th:object="${laQuestion}" method="post">
+     <input type="hidden" th:field="*{id}" />
+     <input type="hidden" th:field="*{quizz}" />
+     <p th:if="${laQuestion.image == null || laQuestion.image == ''}">Aucune image enregistrée pour le moment</p><img style="width: 15%" th:if="${laQuestion.image != null && laQuestion.image != ''}" th:src="'/api/showFile/' + ${laQuestion.image}" th:alt="'image intitule de la intitule ' + ${laQuestion.id}">
+     <div class="form-group">
+         <label for="question_name">Question: </label>
+         <input type="text" class="form-control" id="question_name" th:field="*{intitule}" />
+     </div>
+     <table>
+         <tr>
+             <td>
+                 <div class="form-group">
+                     <label for="reponse0">Réponse</label>
+                     <input th:field="*{reponses[0].id}" type="hidden">
+                     <input th:field="*{reponses[0].nom}" type="text" class="form-control" id="reponse0">
+                 </div>
+                 <div class="form-group">
+                     <label for="reponse0_correct">Réponse valide:</label>
+                     <input th:field="*{reponses[0].correct}" type="checkbox" class="form-control" id="reponse0_correct">
+                 </div>
+             </td>
+             <td>
+                 <div class="form-group">
+                     <label for="reponse1">Réponse</label>
+                     <input th:field="*{reponses[1].id}" type="hidden">
+                     <input th:field="*{reponses[1].nom}" type="text" class="form-control" id="reponse1">
+                 </div>
+                 <div class="form-group">
+                     <label for="reponse1_correct">Réponse valide:</label>
+                     <input th:field="*{reponses[1].correct}" type="checkbox" class="form-control" id="reponse1_correct">
+                 </div>
+             </td>
+         </tr>
+         <tr>
+             <td>
+                 <div class="form-group">
+                     <label for="reponse2">Réponse</label>
+                     <input th:field="*{reponses[2].id}" type="hidden">
+                     <input th:field="*{reponses[2].nom}" type="text" class="form-control" id="reponse2">
+                 </div>
+                 <div class="form-group">
+                     <label for="reponse2_correct">Réponse valide:</label>
+                     <input th:field="*{reponses[2].correct}" type="checkbox" class="form-control" id="reponse2_correct">
+                 </div>
+             </td>
+             <td>
+                 <div class="form-group">
+                     <label for="reponse3">Réponse</label>
+                     <input th:field="*{reponses[3].id}" type="hidden">
+                     <input th:field="*{reponses[3].nom}" type="text" class="form-control" id="reponse3">
+                 </div>
+                 <div class="form-group">
+                     <label for="reponse3_correct">Réponse valide:</label>
+                     <input th:field="*{reponses[3].correct}" type="checkbox" class="form-control" id="reponse3_correct">
+                 </div>
+             </td>
+         </tr>
+     </table>
+     <p><input class="btn btn-success" type="submit" value="Enregistrer" /> <a class="btn btn-secondary" th:href="@{'/quizz/' + ${laQuestion.quizz.id} + '/questions' }">Retour</a></p>
+ </form>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create or edit</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+ <h1>Form Theme</h1>
+ <form action="#" th:action="@{/quizz/createedit}" th:object="${quizz}" method="post">
+     <input type="hidden" th:field="*{id}" />
+     <div class="form-group">
+         <label for="quizz_name">Nom: </label>
+         <input type="text" class="form-control" id="quizz_name" placeholder="Nom" th:field="*{nom}" />
+     </div>
+     <div class="form-group">
+         <label for="quizz_description">Description: </label>
+         <textarea type="text" class="form-control" id="quizz_description" placeholder="Nom" th:field="*{description}"> </textarea>
+     </div>
+     <div class="form-group">
+         <label for="quizz_type">Type</label>
+         <select th:field="*{type}" class="form-control" id="quizz_type">
+             <option th:each="type: ${allTypes}" th:value="${type.id}" th:text="${type.nom}" th:title="${type.description}"></option>
+         </select>
+     </div>
+     <div class="form-group">
+         <label for="quizz_themes">Themes</label>
+         <select multiple="multiple" th:field="*{themes}" class="form-control" id="quizz_themes">
+             <option th:each="theme: ${allThemes}" th:value="${theme.id}" th:text="${theme.nom}" th:title="${theme.description}"></option>
+         </select>
+     </div>
+     <div class="form-group">
+         <label for="quizz_utilisateur">Type</label>
+         <select th:field="*{createur}" class="form-control" id="quizz_utilisateur">
+             <option th:each="createur: ${allUtilisateurs}" th:value="${createur.id}" th:text="${createur.nom}"></option>
+         </select>
+     </div>
+     <p><input class="btn btn-success" type="submit" value="Enregistrer" /> <a class="btn btn-secondary" th:href="@{/quizz}">Retour</a></p>
+ </form>
+</body>
+</html>
