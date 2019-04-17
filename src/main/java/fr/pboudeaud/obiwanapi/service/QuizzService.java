@@ -33,6 +33,8 @@ public class QuizzService {
             oldQuizz.setDescription(quizz.getDescription());
             oldQuizz.setThemes(quizz.getThemes());
             oldQuizz.setType(quizz.getType());
+            this.quizzRepository.save(oldQuizz);
+            this.quizzRepository.flush();
         }
     }
 }
