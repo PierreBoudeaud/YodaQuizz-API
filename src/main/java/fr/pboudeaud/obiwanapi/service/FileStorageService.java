@@ -4,13 +4,13 @@ import fr.pboudeaud.obiwanapi.entity.Question;
 import fr.pboudeaud.obiwanapi.exception.FileStorageException;
 import fr.pboudeaud.obiwanapi.exception.MyFileNotFoundException;
 import fr.pboudeaud.obiwanapi.property.FileStorageProperties;
-import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.nio.file.Files;
@@ -23,11 +23,14 @@ public class FileStorageService {
 
     private final Path fileStorageLocation;
 
+    private final Path exportFolderLocation;
+
     @Autowired
     public FileStorageService(FileStorageProperties fileStorageProperties) {
         this.fileStorageLocation = Paths.get(fileStorageProperties.getUploadDir())
                 .toAbsolutePath().normalize();
-
+        this.exportFolderLocation = Paths.get(fileStorageProperties.getExportDir())
+                .toAbsolutePath().normalize();
         try {
             Files.createDirectories(this.fileStorageLocation);
         } catch (Exception ex) {
@@ -70,4 +73,15 @@ public class FileStorageService {
             throw new MyFileNotFoundException("File not found " + fileName, ex);
         }
     }
+
+    /*public File[] loadAllFilesOfQuizzAsResource(int quizzId) {
+            File folder = new File(this.fileStorageLocation.toAbsolutePath().toUri());
+            File[] matchFiles = folder.listFiles(new FilenameFilter() {
+                @Override
+                public boolean accept(File dir, String name) {
+                    return name.startsWith(quizzId + "_");
+                }
+            });
+        return matchFiles;
+    }*/
 }

@@ -5,6 +5,7 @@ import fr.pboudeaud.obiwanapi.service.QuizzService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -15,7 +16,20 @@ public class QuizzController {
 
     @RequestMapping
     public List<Quizz> getAll() {
-        return this.quizzService.getAll();
+        List<Quizz> allQuizz =  this.quizzService.getAll();
+        for (Quizz quizz: allQuizz) {
+            quizz.setQuestions(new ArrayList<>());
+        }
+        return allQuizz;
+    }
+
+    @RequestMapping(params = { "valid" })
+    public List<Quizz> getAllActive(@RequestParam("valid") boolean valid) {
+        List<Quizz> allQuizz =  this.quizzService.getAllValid(valid);
+        for (Quizz quizz: allQuizz) {
+            quizz.setQuestions(new ArrayList<>());
+        }
+        return allQuizz;
     }
 
     @RequestMapping(path = "/{id}")

@@ -11,24 +11,34 @@
     <a th:href="@{/quizz/createedit/0}" class="btn btn-success rounded">+</a>
     <table class="table">
         <tr>
+            <th>Valide</th>
             <th>Nom</th>
             <th>Description</th>
             <th>Type</th>
             <th>Thèmes</th>
             <th>Créateur</th>
+            <th>Difficulté</th>
             <th></th>
         </tr>
         <tr th:if="${allQuizz.size() == 0}">
             <td colspan="6">Aucun quizz trouvé</td>
         </tr>
         <tr th:each="quizz: ${allQuizz}">
+            <td><button class="btn round" disabled th:classappend="${quizz.valid} ? 'btn-success' : 'btn-danger'" /></td>
             <td><a th:href="@{'/quizz/' + ${quizz.id}}" th:text="${quizz.nom}"></a></td>
             <td th:text="${quizz.description}" />
             <td th:text="${quizz.type.nom}" />
             <td><span th:each="theme: ${quizz.themes}" class="badge badge-info" th:text="${theme.nom}" /></td>
             <td th:text="${quizz.createur.nom}" />
+            <td th:text="${quizz.difficulte}"></td>
             <td><a class="btn btn-warning" th:href="@{'/quizz/createedit/' + ${quizz.id}}">Edit</a><a class="btn btn-danger" th:href="@{'/quizz/' + ${quizz.id} + '/delete'}">Supprimer</a></td>
         </tr>
     </table>
+    <style>
+        .round {
+            border-radius: 50%;
+            padding: 12px;
+        }
+    </style>
 </body>
 </html>

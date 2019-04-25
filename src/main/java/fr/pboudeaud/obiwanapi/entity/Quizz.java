@@ -1,5 +1,7 @@
 package fr.pboudeaud.obiwanapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -23,6 +25,8 @@ public class Quizz implements Serializable {
 
     private int version;
 
+    private float difficulte;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "createur_id")
     private Utilisateur createur;
@@ -39,15 +43,21 @@ public class Quizz implements Serializable {
     @JoinColumn(name = "type_id")
     private Type type;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "quizz_id")
     private List<Statistique> statistiques;
+
+
+    private boolean valid;
 
 
     public Quizz() {
         this.version = 0;
         this.dateCrea = new Date();
         this.dateModif = new Date();
+        this.valid = false;
+        this.difficulte = 2.5f;
     }
 
     public Quizz(String nom, String description) {
@@ -157,6 +167,22 @@ public class Quizz implements Serializable {
         this.statistiques = statistiques;
     }
 
+    public float getDifficulte() {
+        return difficulte;
+    }
+
+    public void setDifficulte(float difficulte) {
+        this.difficulte = difficulte;
+    }
+
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
+
     public List<String> getSomeImagesOfQuestions() {
         List<String> result = new ArrayList<>();
         int nbImage = this.questions.size() > 5 ? 5 : this.questions.size();
@@ -171,8 +197,12 @@ public class Quizz implements Serializable {
     }
 
     private static int generateRandomIntIntRange(int max) {
+        return generateRandomIntIntRange(0, max);
+    }
+
+    private static int generateRandomIntIntRange(int min, int max) {
         Random r = new Random();
-        return r.nextInt((max - 0) + 1) + 0;
+        return r.nextInt((max - min) + 1) + min;
     }
 
     @Override

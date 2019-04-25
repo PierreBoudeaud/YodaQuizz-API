@@ -18,6 +18,10 @@ public class QuizzService {
         return this.quizzRepository.findAll();
     }
 
+    public List<Quizz> getAllValid(boolean valid) {
+        return this.quizzRepository.findByValid(valid);
+    }
+
     public Quizz create(@RequestBody Quizz quizz) {
         this.quizzRepository.save(quizz);
         this.quizzRepository.flush();
@@ -33,6 +37,8 @@ public class QuizzService {
             oldQuizz.setDescription(quizz.getDescription());
             oldQuizz.setThemes(quizz.getThemes());
             oldQuizz.setType(quizz.getType());
+            oldQuizz.setValid(quizz.isValid());
+            oldQuizz.setDifficulte(quizz.getDifficulte());
             this.quizzRepository.save(oldQuizz);
             this.quizzRepository.flush();
         }

@@ -1,5 +1,7 @@
 package fr.pboudeaud.obiwanapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -15,6 +17,7 @@ public class Utilisateur implements Serializable {
 
     private Date date;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     @JoinColumn(name = "utilisateur_id")
     private List<Statistique> statistiques;

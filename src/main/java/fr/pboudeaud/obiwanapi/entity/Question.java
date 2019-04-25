@@ -1,5 +1,7 @@
 package fr.pboudeaud.obiwanapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -30,6 +32,7 @@ public class Question implements Serializable {
     @JoinColumn(name = "question_id")
     private List<Reponse> reponses;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quizz_id")
     private Quizz quizz;
@@ -174,6 +177,11 @@ public class Question implements Serializable {
         }
         return reponse;
     }
+
+    /*// TODO: Create is complete to show uncomplete responses
+    public boolean isCorrectlyCompleted(){
+
+    }*/
 
     @Override
     public String toString() {
